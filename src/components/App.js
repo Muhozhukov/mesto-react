@@ -1,5 +1,5 @@
 //import logo from './logo.svg';
-import './App.css';
+
 import closePopupImagePath from '../images/close__icon.svg';
 import Main from './Main';
 import Header from './Header';
@@ -10,6 +10,12 @@ import Card from './Card';
 import ImagePopup from './ImagePopup';
 import api from '../utils/Api.js';
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [cards, setCards] = React.useState([]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -27,23 +33,17 @@ function App() {
     setIsImagePopupOpen(false);
   }
   function handleCardClick(data) {
-    setSelectedCard({data});
+    setSelectedCard(data);
     setIsImagePopupOpen(true);
   }
-  // function handleCardImageClick() {
-  //   setIsImagePopupOpen(true);
-  // }
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-  
-  const [cards, setCards] = React.useState([]);
+
   React.useEffect(() => {
       api.getInitialCards().then((res) => {
           setCards(res);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   })
 
   return (
