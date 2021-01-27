@@ -10,7 +10,6 @@
   height: 26px;
   width: 26px;
   outline:none;
-  background-color: inherit;
 }
 .profile__edit-avatar-button:hover {
   cursor: pointer;
