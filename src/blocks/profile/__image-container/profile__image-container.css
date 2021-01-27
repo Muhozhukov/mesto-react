@@ -1,8 +1,8 @@
-.profile__image-container {display: flex;
+.profile__image-container {
+  display: flex;
   border-radius: 50%;
   height: 127.5px;
   width: 127.5px;
-  display: flex;
   background-color: grey;
   background-size: cover;
   background-position: center;
