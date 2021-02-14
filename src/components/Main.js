@@ -3,7 +3,6 @@ import addButtonPath from '../images/add__button.svg';
 import profileEditButtonPath from '../images/edit__button.svg';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
-import api from '../utils/Api.js';
 
 function Main(props) {
   const userInfo = React.useContext(CurrentUserContext);
