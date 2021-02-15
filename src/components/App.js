@@ -44,44 +44,71 @@ function App() {
     .then((res) => {
       setCurrentUser(res)
     })
+    .catch((err) => {
+      console.log(err);
+    });
   }
   function handleUpdateAvatar(data) {
     api.changeProfileAvatar(data)
     .then((res) => {
       setCurrentUser(res)
     })
+    .catch((err) => {
+      console.log(err);
+    });
   }
   function handleAddPlaceSubmit(data) {
     api.postNewCard(data)
     .then((res) => {
       setCards([res, ...cards])
     })
+    .catch((err) => {
+      console.log(err);
+    });
   }
   //Постановка лайка карточке
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     if (!isLiked) {
-      api.likeToCard(card._id).then((newCard) => {
+      api.likeToCard(card._id)
+      .then((newCard) => {
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
         setCards(newCards);
       })
+      .catch((err) => {
+        console.log(err);
+      });
     } else {
-      api.deleteLikeToCard(card._id).then((newCard) => {
+      api.deleteLikeToCard(card._id)
+      .then((newCard) => {
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
         setCards(newCards);
-      }) 
+      })
+      .catch((err) => {
+        console.log(err);
+      }); 
     }
   }
   //Удаление карточки
   function handleCardDelete(card) {
-    const cardIsMine = card.owner._id == currentUser._id;
+    const cardIsMine = card.owner._id === currentUser._id;
     if (cardIsMine) {
-      api.deleteCard(card._id).then(() => {
-        const deletedCard = cards.filter((item) => {
-          if (item._id === card._id) return false;})
+      api.deleteCard(card._id)
+      .then((res) => {
+        const cardFilter = (item) => {
+          if (item._id === card._id) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+        const deletedCard = cards.filter(item => cardFilter(item)); 
           setCards(deletedCard)
       })
+      .catch((err) => {
+        console.log(err);
+      });
     }
   }
 
@@ -91,7 +118,10 @@ function App() {
     .then((res) => {
       setCurrentUser(res);
       })
-  }, [currentUser])
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
 
     //Отрисовка карточек
   React.useEffect(() => {
@@ -101,7 +131,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  })
+  }, [])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

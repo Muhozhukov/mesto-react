@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import addButtonPath from '../images/add__button.svg';
 import profileEditButtonPath from '../images/edit__button.svg';
 import Card from './Card';
